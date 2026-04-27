@@ -1,0 +1,332 @@
+{
+  "format": 1,
+  "restore": {
+    "/home/work/projects/expense-tracker/src/ExpenseTracker.API/ExpenseTracker.API.csproj": {}
+  },
+  "projects": {
+    "/home/work/projects/expense-tracker/src/ExpenseTracker.API/ExpenseTracker.API.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "/home/work/projects/expense-tracker/src/ExpenseTracker.API/ExpenseTracker.API.csproj",
+        "projectName": "ExpenseTracker.API",
+        "projectPath": "/home/work/projects/expense-tracker/src/ExpenseTracker.API/ExpenseTracker.API.csproj",
+        "packagesPath": "/home/work/.nuget/packages/",
+        "outputPath": "/home/work/projects/expense-tracker/src/ExpenseTracker.API/obj/",
+        "projectStyle": "PackageReference",
+        "configFilePaths": [
+          "/home/work/.nuget/NuGet/NuGet.Config"
+        ],
+        "originalTargetFrameworks": [
+          "net8.0"
+        ],
+        "sources": {
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "net8.0": {
+            "targetAlias": "net8.0",
+            "projectReferences": {
+              "/home/work/projects/expense-tracker/src/ExpenseTracker.Application/ExpenseTracker.Application.csproj": {
+                "projectPath": "/home/work/projects/expense-tracker/src/ExpenseTracker.Application/ExpenseTracker.Application.csproj"
+              },
+              "/home/work/projects/expense-tracker/src/ExpenseTracker.Infrastructure/ExpenseTracker.Infrastructure.csproj": {
+                "projectPath": "/home/work/projects/expense-tracker/src/ExpenseTracker.Infrastructure/ExpenseTracker.Infrastructure.csproj"
+              }
+            }
+          }
+        },
+        "warningProperties": {
+          "allWarningsAsErrors": true,
+          "warnAsError": [
+            "NU1605"
+          ]
+        },
+        "restoreAuditProperties": {
+          "enableAudit": "true",
+          "auditLevel": "low",
+          "auditMode": "direct"
+        }
+      },
+      "frameworks": {
+        "net8.0": {
+          "targetAlias": "net8.0",
+          "dependencies": {
+            "Microsoft.AspNetCore.OpenApi": {
+              "target": "Package",
+              "version": "[8.0.4, )"
+            },
+            "Microsoft.Extensions.Diagnostics.HealthChecks.EntityFrameworkCore": {
+              "target": "Package",
+              "version": "[8.0.4, )"
+            },
+            "Serilog.AspNetCore": {
+              "target": "Package",
+              "version": "[8.0.1, )"
+            },
+            "Serilog.Enrichers.Environment": {
+              "target": "Package",
+              "version": "[2.3.0, )"
+            },
+            "Serilog.Enrichers.Thread": {
+              "target": "Package",
+              "version": "[3.1.0, )"
+            },
+            "Serilog.Sinks.Console": {
+              "target": "Package",
+              "version": "[5.0.1, )"
+            },
+            "Serilog.Sinks.File": {
+              "target": "Package",
+              "version": "[5.0.0, )"
+            },
+            "Swashbuckle.AspNetCore": {
+              "target": "Package",
+              "version": "[6.6.2, )"
+            }
+          },
+          "imports": [
+            "net461",
+            "net462",
+            "net47",
+            "net471",
+            "net472",
+            "net48",
+            "net481"
+          ],
+          "assetTargetFallback": true,
+          "warn": true,
+          "frameworkReferences": {
+            "Microsoft.AspNetCore.App": {
+              "privateAssets": "none"
+            },
+            "Microsoft.NETCore.App": {
+              "privateAssets": "all"
+            }
+          },
+          "runtimeIdentifierGraphPath": "/home/work/.dotnet/sdk/8.0.420/PortableRuntimeIdentifierGraph.json"
+        }
+      }
+    },
+    "/home/work/projects/expense-tracker/src/ExpenseTracker.Application/ExpenseTracker.Application.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "/home/work/projects/expense-tracker/src/ExpenseTracker.Application/ExpenseTracker.Application.csproj",
+        "projectName": "ExpenseTracker.Application",
+        "projectPath": "/home/work/projects/expense-tracker/src/ExpenseTracker.Application/ExpenseTracker.Application.csproj",
+        "packagesPath": "/home/work/.nuget/packages/",
+        "outputPath": "/home/work/projects/expense-tracker/src/ExpenseTracker.Application/obj/",
+        "projectStyle": "PackageReference",
+        "configFilePaths": [
+          "/home/work/.nuget/NuGet/NuGet.Config"
+        ],
+        "originalTargetFrameworks": [
+          "net8.0"
+        ],
+        "sources": {
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "net8.0": {
+            "targetAlias": "net8.0",
+            "projectReferences": {
+              "/home/work/projects/expense-tracker/src/ExpenseTracker.Domain/ExpenseTracker.Domain.csproj": {
+                "projectPath": "/home/work/projects/expense-tracker/src/ExpenseTracker.Domain/ExpenseTracker.Domain.csproj"
+              }
+            }
+          }
+        },
+        "warningProperties": {
+          "allWarningsAsErrors": true,
+          "noWarn": [
+            "NU1903"
+          ],
+          "warnAsError": [
+            "NU1605"
+          ]
+        },
+        "restoreAuditProperties": {
+          "enableAudit": "true",
+          "auditLevel": "low",
+          "auditMode": "direct"
+        }
+      },
+      "frameworks": {
+        "net8.0": {
+          "targetAlias": "net8.0",
+          "dependencies": {
+            "AutoMapper": {
+              "target": "Package",
+              "version": "[13.0.1, )"
+            },
+            "FluentValidation": {
+              "target": "Package",
+              "version": "[11.9.2, )"
+            },
+            "Microsoft.Extensions.Logging.Abstractions": {
+              "target": "Package",
+              "version": "[8.0.1, )"
+            }
+          },
+          "imports": [
+            "net461",
+            "net462",
+            "net47",
+            "net471",
+            "net472",
+            "net48",
+            "net481"
+          ],
+          "assetTargetFallback": true,
+          "warn": true,
+          "frameworkReferences": {
+            "Microsoft.NETCore.App": {
+              "privateAssets": "all"
+            }
+          },
+          "runtimeIdentifierGraphPath": "/home/work/.dotnet/sdk/8.0.420/PortableRuntimeIdentifierGraph.json"
+        }
+      }
+    },
+    "/home/work/projects/expense-tracker/src/ExpenseTracker.Domain/ExpenseTracker.Domain.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "/home/work/projects/expense-tracker/src/ExpenseTracker.Domain/ExpenseTracker.Domain.csproj",
+        "projectName": "ExpenseTracker.Domain",
+        "projectPath": "/home/work/projects/expense-tracker/src/ExpenseTracker.Domain/ExpenseTracker.Domain.csproj",
+        "packagesPath": "/home/work/.nuget/packages/",
+        "outputPath": "/home/work/projects/expense-tracker/src/ExpenseTracker.Domain/obj/",
+        "projectStyle": "PackageReference",
+        "configFilePaths": [
+          "/home/work/.nuget/NuGet/NuGet.Config"
+        ],
+        "originalTargetFrameworks": [
+          "net8.0"
+        ],
+        "sources": {
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "net8.0": {
+            "targetAlias": "net8.0",
+            "projectReferences": {}
+          }
+        },
+        "warningProperties": {
+          "allWarningsAsErrors": true,
+          "warnAsError": [
+            "NU1605"
+          ]
+        },
+        "restoreAuditProperties": {
+          "enableAudit": "true",
+          "auditLevel": "low",
+          "auditMode": "direct"
+        }
+      },
+      "frameworks": {
+        "net8.0": {
+          "targetAlias": "net8.0",
+          "imports": [
+            "net461",
+            "net462",
+            "net47",
+            "net471",
+            "net472",
+            "net48",
+            "net481"
+          ],
+          "assetTargetFallback": true,
+          "warn": true,
+          "frameworkReferences": {
+            "Microsoft.NETCore.App": {
+              "privateAssets": "all"
+            }
+          },
+          "runtimeIdentifierGraphPath": "/home/work/.dotnet/sdk/8.0.420/PortableRuntimeIdentifierGraph.json"
+        }
+      }
+    },
+    "/home/work/projects/expense-tracker/src/ExpenseTracker.Infrastructure/ExpenseTracker.Infrastructure.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "/home/work/projects/expense-tracker/src/ExpenseTracker.Infrastructure/ExpenseTracker.Infrastructure.csproj",
+        "projectName": "ExpenseTracker.Infrastructure",
+        "projectPath": "/home/work/projects/expense-tracker/src/ExpenseTracker.Infrastructure/ExpenseTracker.Infrastructure.csproj",
+        "packagesPath": "/home/work/.nuget/packages/",
+        "outputPath": "/home/work/projects/expense-tracker/src/ExpenseTracker.Infrastructure/obj/",
+        "projectStyle": "PackageReference",
+        "configFilePaths": [
+          "/home/work/.nuget/NuGet/NuGet.Config"
+        ],
+        "originalTargetFrameworks": [
+          "net8.0"
+        ],
+        "sources": {
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "net8.0": {
+            "targetAlias": "net8.0",
+            "projectReferences": {
+              "/home/work/projects/expense-tracker/src/ExpenseTracker.Application/ExpenseTracker.Application.csproj": {
+                "projectPath": "/home/work/projects/expense-tracker/src/ExpenseTracker.Application/ExpenseTracker.Application.csproj"
+              },
+              "/home/work/projects/expense-tracker/src/ExpenseTracker.Domain/ExpenseTracker.Domain.csproj": {
+                "projectPath": "/home/work/projects/expense-tracker/src/ExpenseTracker.Domain/ExpenseTracker.Domain.csproj"
+              }
+            }
+          }
+        },
+        "warningProperties": {
+          "allWarningsAsErrors": true,
+          "warnAsError": [
+            "NU1605"
+          ]
+        },
+        "restoreAuditProperties": {
+          "enableAudit": "true",
+          "auditLevel": "low",
+          "auditMode": "direct"
+        }
+      },
+      "frameworks": {
+        "net8.0": {
+          "targetAlias": "net8.0",
+          "dependencies": {
+            "Microsoft.EntityFrameworkCore.Design": {
+              "include": "Runtime, Build, Native, ContentFiles, Analyzers, BuildTransitive",
+              "suppressParent": "All",
+              "target": "Package",
+              "version": "[8.0.4, )"
+            },
+            "Microsoft.EntityFrameworkCore.SqlServer": {
+              "target": "Package",
+              "version": "[8.0.4, )"
+            },
+            "Microsoft.EntityFrameworkCore.Sqlite": {
+              "target": "Package",
+              "version": "[8.0.4, )"
+            }
+          },
+          "imports": [
+            "net461",
+            "net462",
+            "net47",
+            "net471",
+            "net472",
+            "net48",
+            "net481"
+          ],
+          "assetTargetFallback": true,
+          "warn": true,
+          "frameworkReferences": {
+            "Microsoft.NETCore.App": {
+              "privateAssets": "all"
+            }
+          },
+          "runtimeIdentifierGraphPath": "/home/work/.dotnet/sdk/8.0.420/PortableRuntimeIdentifierGraph.json"
+        }
+      }
+    }
+  }
+}

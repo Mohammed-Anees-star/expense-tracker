@@ -1,4 +1,4 @@
-
+﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.9.34910.174
@@ -10,6 +10,10 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ExpenseTracker.Infrastructure", "src\ExpenseTracker.Infrastructure\ExpenseTracker.Infrastructure.csproj", "{C3D4E5F6-A7B8-9012-CDEF-012345678902}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ExpenseTracker.API", "src\ExpenseTracker.API\ExpenseTracker.API.csproj", "{D4E5F6A7-B8C9-0123-DEF0-123456789003}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "tests", "tests", "{3E84D1E6-9E38-4D40-9EE4-EA4F2453A5A3}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ExpenseTracker.Tests", "tests\ExpenseTracker.Tests\ExpenseTracker.Tests.csproj", "{C046919B-C8C5-4461-BAD3-EF4C412485E9}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -33,5 +37,12 @@ Global
 		{D4E5F6A7-B8C9-0123-DEF0-123456789003}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{D4E5F6A7-B8C9-0123-DEF0-123456789003}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{D4E5F6A7-B8C9-0123-DEF0-123456789003}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C046919B-C8C5-4461-BAD3-EF4C412485E9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C046919B-C8C5-4461-BAD3-EF4C412485E9}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C046919B-C8C5-4461-BAD3-EF4C412485E9}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C046919B-C8C5-4461-BAD3-EF4C412485E9}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{C046919B-C8C5-4461-BAD3-EF4C412485E9} = {3E84D1E6-9E38-4D40-9EE4-EA4F2453A5A3}
 	EndGlobalSection
 EndGlobal

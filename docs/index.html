@@ -1,0 +1,450 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Expense Tracker — .NET 8 + Azure + Power Apps</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Fira+Code:wght@400;500&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --blue: #0078D4;
+      --blue-dark: #005a9e;
+      --blue-light: #e8f4fd;
+      --green: #107C10;
+      --purple: #5C2D91;
+      --bg: #f8fafc;
+      --surface: #ffffff;
+      --border: #e2e8f0;
+      --text: #1e293b;
+      --muted: #64748b;
+      --radius: 12px;
+    }
+
+    body { font-family: 'Inter', sans-serif; background: var(--bg); color: var(--text); line-height: 1.6; }
+
+    /* NAV */
+    nav {
+      background: #fff;
+      border-bottom: 1px solid var(--border);
+      padding: 0 2rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      height: 60px;
+      position: sticky; top: 0; z-index: 100;
+    }
+    .nav-brand { font-weight: 700; font-size: 1.1rem; display: flex; align-items: center; gap: 8px; }
+    .nav-brand .dot { width: 10px; height: 10px; background: var(--blue); border-radius: 50%; }
+    nav a { color: var(--muted); text-decoration: none; font-size: 0.9rem; font-weight: 500; }
+    nav a:hover { color: var(--blue); }
+    .nav-links { display: flex; gap: 1.5rem; align-items: center; }
+    .btn-nav {
+      background: var(--blue); color: #fff !important; padding: 6px 16px;
+      border-radius: 6px; font-size: 0.85rem;
+    }
+    .btn-nav:hover { background: var(--blue-dark) !important; }
+
+    /* HERO */
+    .hero {
+      background: linear-gradient(135deg, #0078D4 0%, #5C2D91 100%);
+      color: #fff;
+      padding: 80px 2rem 100px;
+      text-align: center;
+    }
+    .hero-badge {
+      display: inline-block;
+      background: rgba(255,255,255,0.2);
+      border: 1px solid rgba(255,255,255,0.3);
+      border-radius: 100px;
+      padding: 4px 14px;
+      font-size: 0.8rem;
+      font-weight: 600;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+      margin-bottom: 1.5rem;
+    }
+    .hero h1 { font-size: clamp(2rem, 5vw, 3.5rem); font-weight: 800; margin-bottom: 1rem; line-height: 1.15; }
+    .hero p { font-size: 1.15rem; opacity: 0.9; max-width: 580px; margin: 0 auto 2.5rem; }
+    .hero-buttons { display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap; }
+    .btn-primary {
+      background: #fff; color: var(--blue);
+      padding: 12px 28px; border-radius: 8px;
+      font-weight: 700; font-size: 0.95rem; text-decoration: none;
+      transition: transform 0.15s, box-shadow 0.15s;
+      display: inline-flex; align-items: center; gap: 8px;
+    }
+    .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 8px 20px rgba(0,0,0,0.15); }
+    .btn-outline {
+      background: transparent; color: #fff;
+      border: 2px solid rgba(255,255,255,0.6);
+      padding: 12px 28px; border-radius: 8px;
+      font-weight: 600; font-size: 0.95rem; text-decoration: none;
+      transition: background 0.15s;
+    }
+    .btn-outline:hover { background: rgba(255,255,255,0.1); }
+
+    /* STACK BADGES */
+    .stack-bar {
+      background: #fff;
+      padding: 1.25rem 2rem;
+      display: flex; justify-content: center; align-items: center;
+      flex-wrap: wrap; gap: 0.75rem;
+      border-bottom: 1px solid var(--border);
+    }
+    .stack-badge {
+      display: flex; align-items: center; gap: 6px;
+      background: var(--bg); border: 1px solid var(--border);
+      border-radius: 100px; padding: 5px 14px;
+      font-size: 0.8rem; font-weight: 600; color: var(--text);
+    }
+    .stack-badge img { width: 16px; height: 16px; object-fit: contain; }
+
+    /* MAIN */
+    main { max-width: 1100px; margin: 0 auto; padding: 4rem 2rem; }
+
+    .section-title {
+      font-size: 1.75rem; font-weight: 800; margin-bottom: 0.5rem;
+    }
+    .section-sub { color: var(--muted); font-size: 1rem; margin-bottom: 2.5rem; }
+
+    /* FEATURES GRID */
+    .features-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+      gap: 1.5rem;
+      margin-bottom: 5rem;
+    }
+    .feature-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 1.5rem;
+      transition: box-shadow 0.2s, transform 0.2s;
+    }
+    .feature-card:hover { box-shadow: 0 8px 30px rgba(0,0,0,0.08); transform: translateY(-3px); }
+    .feature-icon { font-size: 2rem; margin-bottom: 0.75rem; }
+    .feature-card h3 { font-size: 1rem; font-weight: 700; margin-bottom: 0.4rem; }
+    .feature-card p { font-size: 0.875rem; color: var(--muted); line-height: 1.6; }
+
+    /* ARCH */
+    .arch-section { margin-bottom: 5rem; }
+    .arch-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 1px;
+      background: var(--border);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      overflow: hidden;
+      margin-bottom: 1.5rem;
+    }
+    .arch-layer {
+      background: var(--surface);
+      padding: 1.5rem 1rem;
+      text-align: center;
+    }
+    .arch-layer .layer-emoji { font-size: 2rem; margin-bottom: 0.5rem; }
+    .arch-layer h4 { font-size: 0.85rem; font-weight: 700; margin-bottom: 0.4rem; }
+    .arch-layer p { font-size: 0.75rem; color: var(--muted); }
+    .arch-arrow { text-align: center; font-size: 1.5rem; color: var(--muted); margin: 0.25rem; }
+
+    /* CODE BLOCK */
+    .code-block {
+      background: #1e1e2e;
+      color: #cdd6f4;
+      border-radius: var(--radius);
+      padding: 1.5rem;
+      font-family: 'Fira Code', monospace;
+      font-size: 0.85rem;
+      overflow-x: auto;
+      margin-bottom: 1rem;
+    }
+    .code-block .comment { color: #6c7086; }
+    .code-block .keyword { color: #89b4fa; }
+    .code-block .string { color: #a6e3a1; }
+    .code-block .url { color: #89dceb; }
+
+    /* ENDPOINTS */
+    .endpoints { margin-bottom: 5rem; }
+    .endpoint-table { width: 100%; border-collapse: collapse; }
+    .endpoint-table th {
+      text-align: left; padding: 0.75rem 1rem;
+      background: var(--bg); border-bottom: 2px solid var(--border);
+      font-size: 0.8rem; font-weight: 700; text-transform: uppercase;
+      color: var(--muted); letter-spacing: 0.05em;
+    }
+    .endpoint-table td {
+      padding: 0.75rem 1rem; border-bottom: 1px solid var(--border);
+      font-size: 0.875rem;
+    }
+    .method {
+      display: inline-block; padding: 2px 8px; border-radius: 4px;
+      font-family: 'Fira Code', monospace; font-size: 0.75rem; font-weight: 700;
+    }
+    .get { background: #dbeafe; color: #1d4ed8; }
+    .post { background: #dcfce7; color: #15803d; }
+    .put { background: #fef9c3; color: #a16207; }
+    .delete { background: #fee2e2; color: #b91c1c; }
+    .path { font-family: 'Fira Code', monospace; font-size: 0.82rem; color: var(--text); }
+
+    /* INTERVIEW POINTS */
+    .interview-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+      gap: 1.25rem;
+      margin-bottom: 5rem;
+    }
+    .interview-card {
+      border-left: 4px solid var(--blue);
+      background: var(--blue-light);
+      border-radius: 0 var(--radius) var(--radius) 0;
+      padding: 1.25rem 1.25rem 1.25rem 1rem;
+    }
+    .interview-card h4 { font-size: 0.9rem; font-weight: 700; margin-bottom: 0.4rem; color: var(--blue-dark); }
+    .interview-card p { font-size: 0.825rem; color: #334155; line-height: 1.6; }
+
+    /* CTA */
+    .cta {
+      background: linear-gradient(135deg, #0078D4, #5C2D91);
+      border-radius: 16px;
+      padding: 3rem 2rem;
+      text-align: center;
+      color: #fff;
+      margin-bottom: 4rem;
+    }
+    .cta h2 { font-size: 1.75rem; font-weight: 800; margin-bottom: 0.75rem; }
+    .cta p { opacity: 0.85; margin-bottom: 2rem; }
+    .cta-buttons { display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap; }
+
+    /* FOOTER */
+    footer {
+      border-top: 1px solid var(--border);
+      padding: 2rem;
+      text-align: center;
+      color: var(--muted);
+      font-size: 0.85rem;
+    }
+    footer a { color: var(--blue); text-decoration: none; }
+
+    @media (max-width: 700px) {
+      .arch-grid { grid-template-columns: repeat(2, 1fr); }
+      .hero h1 { font-size: 2rem; }
+    }
+  </style>
+</head>
+<body>
+
+<nav>
+  <div class="nav-brand">
+    <div class="dot"></div>
+    Expense Tracker
+  </div>
+  <div class="nav-links">
+    <a href="#features">Features</a>
+    <a href="#architecture">Architecture</a>
+    <a href="#api">API</a>
+    <a href="https://github.com/Mohammed-Anees-star/expense-tracker" class="btn-nav" target="_blank">⭐ GitHub</a>
+  </div>
+</nav>
+
+<div class="hero">
+  <div class="hero-badge">🏗️ Production-Ready Project</div>
+  <h1>Expense Tracker<br/>Full-Stack Demo</h1>
+  <p>A complete, interview-ready system — .NET 8 Clean Architecture API, Azure cloud infrastructure, and a Power Apps Canvas front-end.</p>
+  <div class="hero-buttons">
+    <a href="https://github.com/Mohammed-Anees-star/expense-tracker" class="btn-primary" target="_blank">
+      <svg width="16" height="16" fill="currentColor" viewBox="0 0 16 16"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.012 8.012 0 0 0 16 8c0-4.42-3.58-8-8-8z"/></svg>
+      View on GitHub
+    </a>
+    <a href="https://github.com/Mohammed-Anees-star/expense-tracker#readme" class="btn-outline" target="_blank">📖 Read the Docs</a>
+  </div>
+</div>
+
+<div class="stack-bar">
+  <div class="stack-badge">⚡ .NET 8</div>
+  <div class="stack-badge">🗄️ Entity Framework Core</div>
+  <div class="stack-badge">☁️ Azure App Service</div>
+  <div class="stack-badge">🔐 Azure Key Vault</div>
+  <div class="stack-badge">📦 Azure Bicep IaC</div>
+  <div class="stack-badge">🔄 GitHub Actions CI/CD</div>
+  <div class="stack-badge">📱 Power Apps</div>
+  <div class="stack-badge">🧪 xUnit + Moq</div>
+</div>
+
+<main>
+
+  <!-- FEATURES -->
+  <section id="features">
+    <div class="section-title">Everything an interviewer wants to see</div>
+    <div class="section-sub">Built with real production patterns — not tutorial shortcuts.</div>
+
+    <div class="features-grid">
+      <div class="feature-card">
+        <div class="feature-icon">🏛️</div>
+        <h3>Clean Architecture</h3>
+        <p>Four layers — Domain, Application, Infrastructure, API — with strict inward dependency flow. Swap SQL Server for Cosmos DB without touching business logic.</p>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon">🗃️</div>
+        <h3>Repository + Unit of Work</h3>
+        <p>IExpenseRepository and IUnitOfWork interfaces in Domain; EF Core implementations in Infrastructure. Fully mockable for unit tests.</p>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon">🛡️</div>
+        <h3>RFC 7807 Problem Details</h3>
+        <p>Single global ExceptionHandlingMiddleware converts NotFoundException → 404, ValidationException → 422. No stack traces in production responses.</p>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon">🔐</div>
+        <h3>Managed Identity + Key Vault</h3>
+        <p>Zero secrets in config or source control. Web App uses system-assigned identity to fetch the connection string from Key Vault at runtime.</p>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon">📦</div>
+        <h3>Azure Bicep IaC</h3>
+        <p>Entire infrastructure defined as code — App Service, Azure SQL, Key Vault, RBAC role assignments. One script to deploy everything from scratch.</p>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon">🔄</div>
+        <h3>GitHub Actions CI/CD</h3>
+        <p>Push to main → build → test → deploy. Uses Azure publish profile secret. Zero-downtime deployment via App Service slot swap pattern.</p>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon">📱</div>
+        <h3>Power Apps Canvas App</h3>
+        <p>3-screen Canvas App with Custom Connector. Full Power Fx formulas for loading, saving, deleting expenses and a summary chart by category.</p>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon">🧪</div>
+        <h3>Unit Tests (xUnit + Moq)</h3>
+        <p>Service layer and validators fully covered. FluentAssertions for readable assertions. Repository mocked — no real database needed to run tests.</p>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon">⚡</div>
+        <h3>Cancellation Tokens</h3>
+        <p>Every async method propagates CancellationToken from controller all the way to EF Core queries. Graceful cancellation on client disconnect.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ARCHITECTURE -->
+  <section id="architecture" class="arch-section">
+    <div class="section-title">Clean Architecture Layers</div>
+    <div class="section-sub">Dependencies only point inward — outer layers never leak into inner ones.</div>
+
+    <div class="arch-grid">
+      <div class="arch-layer">
+        <div class="layer-emoji">📡</div>
+        <h4>API Layer</h4>
+        <p>Controllers, Middleware, Swagger, CORS, Health checks</p>
+      </div>
+      <div class="arch-layer">
+        <div class="layer-emoji">⚙️</div>
+        <h4>Application Layer</h4>
+        <p>Services, DTOs, AutoMapper, FluentValidation</p>
+      </div>
+      <div class="arch-layer">
+        <div class="layer-emoji">🗄️</div>
+        <h4>Infrastructure Layer</h4>
+        <p>EF Core, SQL Server, Repository implementations</p>
+      </div>
+      <div class="arch-layer">
+        <div class="layer-emoji">🎯</div>
+        <h4>Domain Layer</h4>
+        <p>Entities, Enums, Interfaces — zero external deps</p>
+      </div>
+    </div>
+
+    <div class="code-block">
+<span class="comment">// Local dev — runs with SQLite, zero Azure config</span>
+<span class="keyword">cd</span> src/ExpenseTracker.API
+<span class="keyword">dotnet</span> run
+
+<span class="comment">// Swagger UI auto-opens at:</span>
+<span class="url">http://localhost:5000/swagger</span>
+
+<span class="comment">// Deploy to Azure (one command):</span>
+<span class="keyword">./infra/deploy.sh</span> rg-expense-tracker-dev eastus
+    </div>
+  </section>
+
+  <!-- API REFERENCE -->
+  <section id="api" class="endpoints">
+    <div class="section-title">API Reference</div>
+    <div class="section-sub">RESTful endpoints with Swagger/OpenAPI documentation built-in.</div>
+
+    <table class="endpoint-table">
+      <thead>
+        <tr>
+          <th>Method</th>
+          <th>Endpoint</th>
+          <th>Description</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr><td><span class="method get">GET</span></td><td class="path">/expenses</td><td>List all expenses (optional userId, category filter)</td></tr>
+        <tr><td><span class="method get">GET</span></td><td class="path">/expenses/{id}</td><td>Get single expense by GUID</td></tr>
+        <tr><td><span class="method post">POST</span></td><td class="path">/expenses</td><td>Create a new expense</td></tr>
+        <tr><td><span class="method put">PUT</span></td><td class="path">/expenses/{id}</td><td>Update an existing expense</td></tr>
+        <tr><td><span class="method delete">DELETE</span></td><td class="path">/expenses/{id}</td><td>Delete an expense (204 No Content)</td></tr>
+        <tr><td><span class="method get">GET</span></td><td class="path">/expenses/summary</td><td>Totals by category + grand total</td></tr>
+        <tr><td><span class="method get">GET</span></td><td class="path">/health</td><td>EF Core DB connectivity health check</td></tr>
+        <tr><td><span class="method get">GET</span></td><td class="path">/swagger</td><td>Interactive API documentation</td></tr>
+      </tbody>
+    </table>
+  </section>
+
+  <!-- INTERVIEW POINTS -->
+  <section>
+    <div class="section-title">5 Interview Talking Points</div>
+    <div class="section-sub">Pre-loaded answers for "walk me through your architecture".</div>
+
+    <div class="interview-grid">
+      <div class="interview-card">
+        <h4>1. Clean Architecture Dependency Flow</h4>
+        <p>"Domain has zero external dependencies. API never touches EF Core directly — it only calls Application interfaces. I can swap SQL Server for Cosmos DB by changing only the Infrastructure project."</p>
+      </div>
+      <div class="interview-card">
+        <h4>2. Repository + Unit of Work Testability</h4>
+        <p>"Interfaces live in Domain, implementations in Infrastructure. The service layer calls SaveChangesAsync() once — single commit boundary. Unit tests mock IUnitOfWork without touching a real database."</p>
+      </div>
+      <div class="interview-card">
+        <h4>3. RFC 7807 Problem Details</h4>
+        <p>"One middleware catches all exceptions and maps them to structured Problem Details responses. NotFoundException → 404, ValidationException → 422. No stack traces leak to production."</p>
+      </div>
+      <div class="interview-card">
+        <h4>4. Managed Identity + Key Vault (zero secrets)</h4>
+        <p>"The Web App gets a system-assigned identity, which is granted Key Vault Secrets User via Bicep RBAC. The connection string reference in App Settings — raw secret never exists anywhere."</p>
+      </div>
+      <div class="interview-card">
+        <h4>5. Cancellation Tokens Throughout</h4>
+        <p>"Every async method propagates CancellationToken from controller to EF Core. When a client disconnects, the token fires, EF abandons the in-flight query, and the thread is freed immediately."</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA -->
+  <div class="cta">
+    <h2>Ready to explore the code?</h2>
+    <p>Full source, docs, Postman collection, and Power Apps setup guide — all in one repo.</p>
+    <div class="cta-buttons">
+      <a href="https://github.com/Mohammed-Anees-star/expense-tracker" class="btn-primary" target="_blank">
+        <svg width="16" height="16" fill="currentColor" viewBox="0 0 16 16"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.012 8.012 0 0 0 16 8c0-4.42-3.58-8-8-8z"/></svg>
+        View Source on GitHub
+      </a>
+      <a href="https://github.com/Mohammed-Anees-star/expense-tracker/blob/master/README.md" class="btn-outline" target="_blank">📖 Full Documentation</a>
+    </div>
+  </div>
+
+</main>
+
+<footer>
+  Built by <a href="https://github.com/Mohammed-Anees-star" target="_blank">Mohammed Anees</a> · 
+  <a href="https://github.com/Mohammed-Anees-star/expense-tracker" target="_blank">GitHub Repository</a>
+</footer>
+
+</body>
+</html>

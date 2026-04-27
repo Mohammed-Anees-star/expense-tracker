@@ -1,0 +1,15 @@
+global using Xunit;
+global using Moq;
+global using FluentAssertions;
+global using ExpenseTracker.Application.DTOs;
+global using ExpenseTracker.Application.Exceptions;
+global using ExpenseTracker.Application.Interfaces;
+global using ExpenseTracker.Application.Services;
+global using ExpenseTracker.Application.Validators;
+global using ExpenseTracker.Domain.Entities;
+global using ExpenseTracker.Domain.Enums;
+global using ExpenseTracker.Domain.Interfaces;
+global using AutoMapper;
+global using Microsoft.Extensions.Logging.Abstractions;
+global using FluentValidation;
+global using FluentValidation.TestHelper;

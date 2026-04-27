@@ -1,0 +1,116 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>ExpenseTracker.API</name>
+    </assembly>
+    <members>
+        <member name="T:ExpenseTracker.API.Controllers.ExpensesController">
+            <summary>
+            Provides endpoints for creating, reading, updating, and deleting expenses,
+            plus a spending-summary endpoint.
+            </summary>
+        </member>
+        <member name="M:ExpenseTracker.API.Controllers.ExpensesController.#ctor(ExpenseTracker.Application.Interfaces.IExpenseService,Microsoft.Extensions.Logging.ILogger{ExpenseTracker.API.Controllers.ExpensesController})">
+            <summary>Initialises the controller with required dependencies.</summary>
+        </member>
+        <member name="M:ExpenseTracker.API.Controllers.ExpensesController.GetAll(System.String,System.Nullable{ExpenseTracker.Domain.Enums.Category},System.Threading.CancellationToken)">
+            <summary>
+            Returns all expenses for a user, optionally filtered by category.
+            </summary>
+            <param name="userId">Required. The user whose expenses to retrieve.</param>
+            <param name="category">Optional category filter.</param>
+            <param name="cancellationToken">Injected by the framework.</param>
+            <returns>A list of expense objects.</returns>
+            <response code="200">Returns the list of expenses (may be empty).</response>
+            <response code="400">userId query parameter is missing.</response>
+        </member>
+        <member name="M:ExpenseTracker.API.Controllers.ExpensesController.GetSummary(System.String,System.Threading.CancellationToken)">
+            <summary>
+            Returns spending totals grouped by category plus a grand total for a user.
+            </summary>
+            <param name="userId">Required. The user whose summary to compute.</param>
+            <param name="cancellationToken">Injected by the framework.</param>
+            <returns>Category totals and a grand total.</returns>
+            <response code="200">Returns the summary.</response>
+            <response code="400">userId query parameter is missing.</response>
+        </member>
+        <member name="M:ExpenseTracker.API.Controllers.ExpensesController.GetById(System.Guid,System.Threading.CancellationToken)">
+            <summary>
+            Returns a single expense by its unique identifier.
+            </summary>
+            <param name="id">The GUID identifier of the expense.</param>
+            <param name="cancellationToken">Injected by the framework.</param>
+            <returns>The expense object.</returns>
+            <response code="200">Returns the expense.</response>
+            <response code="404">No expense found with the given id.</response>
+        </member>
+        <member name="M:ExpenseTracker.API.Controllers.ExpensesController.Create(ExpenseTracker.Application.DTOs.CreateExpenseRequest,System.Threading.CancellationToken)">
+            <summary>
+            Creates a new expense.
+            </summary>
+            <param name="request">The expense creation payload.</param>
+            <param name="cancellationToken">Injected by the framework.</param>
+            <returns>The newly created expense, with its assigned id.</returns>
+            <response code="201">Expense created successfully.</response>
+            <response code="422">One or more validation errors occurred.</response>
+        </member>
+        <member name="M:ExpenseTracker.API.Controllers.ExpensesController.Update(System.Guid,ExpenseTracker.Application.DTOs.UpdateExpenseRequest,System.Threading.CancellationToken)">
+            <summary>
+            Replaces an existing expense with new values.
+            </summary>
+            <param name="id">The GUID identifier of the expense to update.</param>
+            <param name="request">The updated expense payload.</param>
+            <param name="cancellationToken">Injected by the framework.</param>
+            <returns>The updated expense.</returns>
+            <response code="200">Expense updated successfully.</response>
+            <response code="404">No expense found with the given id.</response>
+            <response code="422">One or more validation errors occurred.</response>
+        </member>
+        <member name="M:ExpenseTracker.API.Controllers.ExpensesController.Delete(System.Guid,System.Threading.CancellationToken)">
+            <summary>
+            Permanently deletes an expense.
+            </summary>
+            <param name="id">The GUID identifier of the expense to delete.</param>
+            <param name="cancellationToken">Injected by the framework.</param>
+            <response code="204">Expense deleted successfully.</response>
+            <response code="404">No expense found with the given id.</response>
+        </member>
+        <member name="T:ExpenseTracker.API.Extensions.ApplicationServiceExtensions">
+            <summary>
+            Extension methods for registering Application-layer services.
+            </summary>
+        </member>
+        <member name="M:ExpenseTracker.API.Extensions.ApplicationServiceExtensions.AddApplicationServices(Microsoft.Extensions.DependencyInjection.IServiceCollection)">
+            <summary>
+            Registers AutoMapper, FluentValidation validators, and application services.
+            </summary>
+        </member>
+        <member name="T:ExpenseTracker.API.Extensions.SwaggerExtensions">
+            <summary>
+            Extension methods for configuring Swagger / OpenAPI documentation.
+            </summary>
+        </member>
+        <member name="M:ExpenseTracker.API.Extensions.SwaggerExtensions.AddSwaggerDocumentation(Microsoft.Extensions.DependencyInjection.IServiceCollection)">
+            <summary>
+            Adds Swagger generation with XML comments and API metadata.
+            </summary>
+        </member>
+        <member name="M:ExpenseTracker.API.Extensions.SwaggerExtensions.UseSwaggerDocumentation(Microsoft.AspNetCore.Builder.IApplicationBuilder)">
+            <summary>
+            Configures the Swagger UI middleware.
+            </summary>
+        </member>
+        <member name="T:ExpenseTracker.API.Middleware.ExceptionHandlingMiddleware">
+            <summary>
+            Global exception handler that converts unhandled exceptions to RFC 7807
+            Problem Details responses, preventing stack-trace leakage to clients.
+            </summary>
+        </member>
+        <member name="M:ExpenseTracker.API.Middleware.ExceptionHandlingMiddleware.#ctor(Microsoft.AspNetCore.Http.RequestDelegate,Microsoft.Extensions.Logging.ILogger{ExpenseTracker.API.Middleware.ExceptionHandlingMiddleware})">
+            <summary>Initialises the middleware.</summary>
+        </member>
+        <member name="M:ExpenseTracker.API.Middleware.ExceptionHandlingMiddleware.InvokeAsync(Microsoft.AspNetCore.Http.HttpContext)">
+            <summary>Executes the middleware pipeline and handles exceptions.</summary>
+        </member>
+    </members>
+</doc>
